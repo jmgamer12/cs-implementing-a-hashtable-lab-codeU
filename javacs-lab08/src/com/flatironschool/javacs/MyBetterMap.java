@@ -44,7 +44,7 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 		}
 	}
 		
-	@Override
+	
 	public void clear() {
 		// clear the sub-maps
 		for (int i=0; i<maps.size(); i++) {
@@ -63,37 +63,37 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 		return maps.get(index);
 	}	
 
-	@Override
+	
 	public boolean containsKey(Object target) {
-		// to find a key, we only have to search one map
-        // TODO: fill this in.
-		return false;
+		MyLinearMap<K, V> map = chooseMap(target);
+		return map.containsKey(target);
 	}
 
-	@Override
+	
 	public boolean containsValue(Object target) {
-		// to find a value, we have to search all maps
-        // TODO: fill this in.
+		for (MyLinearMap<K, V> map: maps)
+			if (map.containsValue(target))
+				return true;
 		return false;
 	}
 
-	@Override
+	
 	public Set<Map.Entry<K, V>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
+	
 	public V get(Object key) {
 		MyLinearMap<K, V> map = chooseMap(key);
 		return map.get(key);
 	}
 
-	@Override
+	
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 
-	@Override
+	
 	public Set<K> keySet() {
 		// add up the keySets from the sub-maps
 		Set<K> set = new HashSet<K>();
@@ -103,26 +103,26 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 		return set;
 	}
 
-	@Override
+	
 	public V put(K key, V value) {
 		MyLinearMap<K, V> map = chooseMap(key);
 		return map.put(key, value);
 	}
 
-	@Override
+	
 	public void putAll(Map<? extends K, ? extends V> map) {
 		for (Map.Entry<? extends K, ? extends V> entry: map.entrySet()) {
 			put(entry.getKey(), entry.getValue());
 		}
 	}
 
-	@Override
+	
 	public V remove(Object key) {
 		MyLinearMap<K, V> map = chooseMap(key);
 		return map.remove(key);
 	}
 
-	@Override
+	
 	public int size() {
 		// add up the sizes of the sub-maps
 		int total = 0;
@@ -132,7 +132,7 @@ public class MyBetterMap<K, V> implements Map<K, V> {
 		return total;
 	}
 
-	@Override
+	
 	public Collection<V> values() {
 		// add up the valueSets from the sub-maps
 		Set<V> set = new HashSet<V>();
